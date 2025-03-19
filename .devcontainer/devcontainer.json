@@ -6,8 +6,21 @@
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-	],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "betterthantomorrow.calva",
+        "styled-components.vscode-styled-components",
+        "firsttris.vscode-jest-runner",
+        "EditorConfig.EditorConfig",
+        "streetsidesoftware.code-spell-checker",
+        "limejuly.vscode-yaml-block-highlight",
+        "andrewleedham.vscode-css-modules"
+      ]
+    }
+  },
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [3000],

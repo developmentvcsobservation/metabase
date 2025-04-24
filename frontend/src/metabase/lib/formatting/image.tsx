@@ -8,8 +8,13 @@ export function formatImage(
   const url = String(value);
   const protocol = getUrlProtocol(url);
   const acceptedProtocol = protocol === "http:" || protocol === "https:";
-  if (jsx && rich && view_as === "image" && acceptedProtocol) {
-    return <img src={url} style={{ height: 30 }} />;
+  if (
+    jsx &&
+    rich &&
+    view_as === "image" &&
+    (acceptedProtocol || url.startsWith("data:image/"))
+  ) {
+    return <img src={url} style={{ height: 320 }} />;
   } else {
     return url;
   }

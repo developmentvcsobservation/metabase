@@ -26,6 +26,7 @@ import {
   FOOTER_HEIGHT,
   HEADER_HEIGHT,
   ROW_HEIGHT,
+  ROW_HEIGHT_IMAGE,
   ROW_ID_COLUMN_ID,
 } from "metabase/data-grid/constants";
 import { useDataGridInstance } from "metabase/data-grid/hooks/use-data-grid-instance";
@@ -636,6 +637,12 @@ export const TableInteractiveInner = forwardRef(function TableInteractiveInner(
     };
   }, [tableTheme.cell.textColor]);
 
+  const rowHeight = useMemo(() => {
+    return cols.some(col => settings.column?.(col)?.view_as === "image")
+      ? ROW_HEIGHT_IMAGE
+      : ROW_HEIGHT;
+  }, [cols, settings]);
+
   const pageSize: number | undefined = useMemo(() => {
     if (settings["table.pagination"]) {
       const availableSpaceForRows = Math.max(
@@ -644,13 +651,13 @@ export const TableInteractiveInner = forwardRef(function TableInteractiveInner(
       );
 
       const heightBasedPageSize = Math.floor(
-        availableSpaceForRows / ROW_HEIGHT,
+        availableSpaceForRows / rowHeight,
       );
 
       return heightBasedPageSize > 0 ? heightBasedPageSize : undefined;
     }
     return undefined;
-  }, [height, settings]);
+  }, [height, settings, rowHeight]);
 
   const tableProps = useDataGridInstance({
     data: rows,

@@ -53,6 +53,7 @@ export interface DataGridProps<TData>
   showRowsCount?: boolean;
   isColumnReorderingDisabled?: boolean;
   theme?: DataGridTheme;
+  rowHeight?: number;
 }
 
 export const DataGrid = function DataGrid<TData>({
@@ -75,6 +76,7 @@ export const DataGrid = function DataGrid<TData>({
   onHeaderCellClick,
   onAddColumnClick,
   onWheel,
+  rowHeight,
 }: DataGridProps<TData>) {
   const {
     virtualColumns,
@@ -271,14 +273,16 @@ export const DataGrid = function DataGrid<TData>({
                   ? maybeVirtualRow
                   : { row: maybeVirtualRow, virtualRow: undefined };
 
-                const virtualRowStyles: React.CSSProperties =
+                  const virtualRowStyles: React.CSSProperties =
                   virtualRow != null
                     ? {
                         position: "absolute",
-                        minHeight: `${virtualRow.size}px`,
+                        height: `${rowHeight ?? virtualRow.size}px`,
                         transform: `translateY(${virtualRow.start}px)`,
                       }
-                    : {};
+                    : rowHeight != null
+                      ? { height: `${rowHeight}px` }
+                      : {};
 
                 const dataIndex =
                   virtualRow != null ? virtualRow.index : row.index;

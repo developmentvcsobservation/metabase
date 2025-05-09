@@ -670,6 +670,7 @@ export const TableInteractiveInner = forwardRef(function TableInteractiveInner(
     onColumnResize: handleColumnResize,
     onColumnReorder: handleColumnReordering,
     pageSize,
+    defaultRowHeight: rowHeight,
   });
   const { virtualGrid } = tableProps;
 
@@ -754,6 +755,7 @@ export const TableInteractiveInner = forwardRef(function TableInteractiveInner(
         onAddColumnClick={handleAddColumnButtonClick}
         onHeaderCellClick={handleHeaderCellClick}
         onWheel={handleWheel}
+        rowHeight={rowHeight}
       />
     </div>
   );
